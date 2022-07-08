@@ -170,6 +170,12 @@ class FoodleAPI {
     return result;
   }
 
+  async getVersion() {
+    const query = axios.get(`${this.url}/`, this.options);
+    const result = await this.executeQuery(query);
+    return result;
+  }
+
   async executeQuery(promise) {
     try {
       const result = await promise;

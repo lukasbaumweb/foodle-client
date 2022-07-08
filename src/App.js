@@ -22,6 +22,7 @@ import Categories from "./views/public/Categories";
 import Impressum from "./views/public/Impressum";
 import CookieNotice from "./components/CookieNotice";
 import { CONFIG } from "./utils/config";
+import UpdateNotifcation from "./components/UpdateNotifcation";
 
 const AUTH_STATES = {
   waiting: "waiting",
@@ -132,15 +133,20 @@ function App() {
     );
   }
 
+  const isPWAInstalled = window.matchMedia("(display-mode: standalone)").matches;
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        {renderedRoutes.map(({ path, element, index }, i) => {
-          if (index) return <Route index element={element} key={i} />;
-          return <Route path={path} element={element} key={i} />;
-        })}
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {renderedRoutes.map(({ path, element, index }, i) => {
+            if (index) return <Route index element={element} key={i} />;
+            return <Route path={path} element={element} key={i} />;
+          })}
+        </Route>
+      </Routes>
+      {isPWAInstalled && <UpdateNotifcation />}
+    </>
   );
 }
 
