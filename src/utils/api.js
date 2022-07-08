@@ -207,17 +207,10 @@ class FoodleAPI {
     return result;
   }
 
-  async register({ firstName, lastName, email, password }) {
+  async register(payload) {
     const query = axios.post(
       `${this.url}/auth/register`,
-      {
-        firstName,
-        lastName,
-
-        email,
-        password,
-        mode: "user",
-      },
+      payload,
       this.options
     );
     const result = await this.executeQuery(query);
