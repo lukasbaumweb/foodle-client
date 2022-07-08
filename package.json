@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start": "SET NODE_ENV=development && react-scripts start",
-    "build": "SET NODE_ENV=production && react-scripts build",
+    "build": "react-scripts build",
     "preserve": "react-scripts build",
     "serve": "serve -s build"
   },
@@ -57,8 +57,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "engines": {
-    "node": "16.x"
   }
 }
