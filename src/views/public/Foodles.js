@@ -27,7 +27,7 @@ const Foodles = () => {
   });
   let [searchParams, setSearchParams] = useSearchParams();
 
-  let query = searchParams.get("q");
+  let query = searchParams.get("q") || "";
 
   const isLessThan1000 = useMediaQuery("(max-width: 1000px)");
   const isLessThan650 = useMediaQuery("(max-width: 650px)");

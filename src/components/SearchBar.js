@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Box, IconButton, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -53,8 +53,18 @@ const StyledClearBase = styled(IconButton)(({ theme }) => ({
 
 const SearchBar = () => {
   const [text, setText] = useState("");
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URL(document.location).searchParams;
+    const query = params.get("q");
+    if (query && query !== text) {
+      setText(query);
+    }
+    return () => {};
+  }, []);
+
+  console.log(text);
 
   const onSubmit = (e) => {
     e.preventDefault();

@@ -128,6 +128,7 @@ const Header = () => {
               sx={{
                 display: { md: "none", xs: "flex" },
                 justifyContent: "space-between",
+                alignItems: "center",
                 width: "100%",
               }}
             >
@@ -139,6 +140,7 @@ const Header = () => {
               >
                 <MenuIcon />
               </IconButton>
+              <SearchBar />
               {AccountComp}
             </Box>
 
@@ -186,7 +188,7 @@ const Header = () => {
           </Toolbar>
         </Container>
       </AppBar>
-
+      <Toolbar />
       <SwipeableDrawer
         open={drawerOpen}
         onClose={toggleDrawer(false)}
