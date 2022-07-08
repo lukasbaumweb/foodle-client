@@ -22,7 +22,6 @@ import Categories from "./views/public/Categories";
 import Impressum from "./views/public/Impressum";
 import CookieNotice from "./components/CookieNotice";
 import { CONFIG } from "./utils/config";
-import UpdateNotifcation from "./components/UpdateNotifcation";
 
 const AUTH_STATES = {
   waiting: "waiting",
@@ -133,8 +132,6 @@ function App() {
     );
   }
 
-  const isPWAInstalled = window.matchMedia("(display-mode: standalone)").matches;
-
   return (
     <>
       <Routes>
@@ -145,7 +142,6 @@ function App() {
           })}
         </Route>
       </Routes>
-      {isPWAInstalled && <UpdateNotifcation />}
     </>
   );
 }
