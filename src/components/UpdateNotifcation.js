@@ -13,7 +13,7 @@ const UpdateNotifcation = () => {
       .getVersion()
       .then((result) => {
         const updateAvailable =
-          result.data?.clientVersion !== process.env.REACT_APP_FOODLE_VERSION;
+          result?.clientVersion !== process.env.REACT_APP_FOODLE_VERSION;
         if (updateAvailable) {
           setVisible(true);
         }
