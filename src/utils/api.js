@@ -7,8 +7,8 @@ import { CONFIG } from "./config";
  * @param {String} str custom string
  * @returns string without trailing slash
  */
-const removeTrailingSlash = (str) =>
-  str.charAt(str.length - 1) === "/" ? str.substr(0, str.length - 1) : str;
+const removeTrailingSlash = (str = "") =>
+  str?.charAt(str.length - 1) === "/" ? str.substring(0, str.length - 1) : str;
 
 /**
  *  Constructs a search string for browsers and apis from custom filters
