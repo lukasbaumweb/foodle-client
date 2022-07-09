@@ -133,7 +133,6 @@ const Login = () => {
             label="E-Mail Adresse"
             name="email"
             autoComplete="email"
-            autoFocus
             onChange={handleChange}
             value={values.email}
             error={values.errors["email"]?.length > 0}

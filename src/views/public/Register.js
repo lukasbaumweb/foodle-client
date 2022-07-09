@@ -150,7 +150,6 @@ const Register = () => {
                 helperText={values.errors["firstName"]}
                 required
                 fullWidth
-                autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>

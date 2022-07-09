@@ -18,8 +18,6 @@ import Loader from "../../../components/Loader";
 import { getLanguage, translate } from "../../../utils/translater";
 import { isObjectEmpty } from "../../../utils/functions";
 import ImageSlider from "../../../components/Images/ImageSlieder";
-import UploadImageButton from "../../../components/Images/UploadImageButton";
-import EditImagesButton from "../../../components/Images/EditImagesButton";
 import IngredientsList from "../../../components/IngredientsList";
 import TutorialList from "../../../components/TutorialList/index";
 import { useNavigate, useParams } from "react-router-dom";
@@ -185,10 +183,6 @@ const EditFoodle = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <ImageSlider id={id} images={values.images} />
-          <Box display="flex" justifyContent="space-between" paddingTop={1}>
-            <UploadImageButton id={id} />
-            <EditImagesButton id={id} />
-          </Box>
         </Grid>
         <Grid item xs={12} md={6}>
           <Grid container spacing={2}>

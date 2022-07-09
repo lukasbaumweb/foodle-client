@@ -193,6 +193,13 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
                 const isItemSelected = isSelected(row.name);
                 const labelId = `table-${index}`;
 
+                let amount = `${row.amount * values.countPortions} ${
+                  translate(CODES.FOOD_UNITS, row.unit)?.abbr
+                }`;
+                if (["pinch", "some"].indexOf(row.unit) > -1) {
+                  amount = translate(CODES.FOOD_UNITS, row.unit)?.full;
+                }
+
                 return (
                   <TableRow
                     hover={!editable}
@@ -204,12 +211,9 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
                     selected={isItemSelected}
                   >
                     <TableCell component="th" id={labelId} scope="row">
-                      {row.config.name || row.name}
+                      {row.config?.name || row.name || "Zutat unbekannt"}
                     </TableCell>
-                    <TableCell align="right">
-                      {row.amount * values.countPortions}{" "}
-                      {translate(CODES.FOOD_UNITS, row.unit)?.abbr}
-                    </TableCell>
+                    <TableCell>{amount}</TableCell>
                     <TableCell align="right" sx={{ width: "auto" }}>
                       <IconButton
                         size="small"

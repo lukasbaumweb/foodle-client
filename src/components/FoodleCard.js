@@ -13,8 +13,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import Chef from "../assets/svg/chef.svg";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
@@ -37,7 +35,7 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
 
   const navigate = useNavigate();
 
-  const imageSrc =
+  let imageSrc =
     foodle.images?.length > 0
       ? api.getPublicImagePath(foodle.images[0].storedName)
       : Chef;
@@ -78,7 +76,11 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
         component="img"
         height={imageSize}
         image={imageSrc}
-        alt={foodle.title}
+        alt={"Foodle Bild nicht gefunden"}
+        onError={(e) => {
+          imageSrc = Chef;
+          e.target.src = Chef;
+        }}
         className="on-hover-grow"
         sx={{ position: "relative", zIndex: 1, maxHeight: "300px" }}
       />

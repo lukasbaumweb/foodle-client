@@ -111,8 +111,7 @@ class FoodleAPI {
 
   async deleteFoodleImage(foodleId, imageId) {
     const query = axios.delete(
-      `${this.url}/foodle/image/${foodleId}`,
-      { imageId },
+      `${this.url}/files/${foodleId}/${imageId}/`,
       this.options
     );
     const result = await this.executeQuery(query);
