@@ -22,6 +22,7 @@ import Categories from "./views/public/Categories";
 import Impressum from "./views/public/Impressum";
 import CookieNotice from "./components/CookieNotice";
 import { CONFIG } from "./utils/config";
+import ChangeLog from "./views/ChangeLog";
 
 const AUTH_STATES = {
   waiting: "waiting",
@@ -89,6 +90,7 @@ function App() {
     { path: ROUTES.public.randomFoodle.path, element: <RandomFoodle /> },
     { path: ROUTES.public.about.path, element: <About /> },
     { path: ROUTES.public.impressum.path, element: <Impressum /> },
+    { path: ROUTES.public.changeLog.path, element: <ChangeLog /> },
   ];
 
   if (values.authState === AUTH_STATES.loggedIn) {
