@@ -9,8 +9,8 @@ import {
   TimelineDot,
   TimelineOppositeContent,
 } from "@mui/lab/";
-import FoodleAPI from "../utils/api";
-import Loader from "../components/Loader";
+import FoodleAPI from "../../utils/api";
+import Loader from "../../components/Loader";
 
 const ChangeLog = () => {
   const [values, setValues] = useState({ loading: true, changes: [] });
@@ -20,7 +20,6 @@ const ChangeLog = () => {
     api
       .getChangelog()
       .then((result) => {
-        console.log(result);
         setValues((state) => ({
           ...state,
           changes: result.data || [],
@@ -51,9 +50,12 @@ const ChangeLog = () => {
             </TimelineSeparator>
             <TimelineContent sx={{ flex: 4 }}>
               <ul>
-                {changes.map(({ text, type }) => (
+                {changes.map(({ text, type }, index) => (
                   <li
-                    style={{ fontWeight: type === "bug-fix" ? 600 : "initial" }}
+                    style={{
+                      fontWeight: type === "bug-fix" ? 600 : "initial",
+                    }}
+                    key={index}
                   >
                     {text}
                   </li>

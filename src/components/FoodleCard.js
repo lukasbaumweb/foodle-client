@@ -11,6 +11,7 @@ import {
   Tooltip,
   Typography,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -25,18 +26,14 @@ import { Auth } from "../utils/auth";
 import FoodleAPI from "../utils/api";
 
 const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
-  const [values, setValues] = useState({ isFavorite: false });
-
-  console.log(foodle.images);
-
   const isMobileDevice = useMediaQuery("(max-width: 650px)");
 
   const auth = new Auth();
   const api = new FoodleAPI();
+  const theme = useTheme();
 
-  const addToFavorites = () => {
-    setValues({ ...values, isFavorite: !values.isFavorite });
-  };
+  const bgColor =
+    theme.palette.mode === "dark" ? "#1e1e1e" : theme.palette.background.paper;
 
   const navigate = useNavigate();
 
@@ -48,7 +45,12 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
   return (
     <Card sx={{ width: "100%" }}>
       <CardHeader
-        sx={{ p: 1 }}
+        sx={{
+          p: 1,
+          position: "relative",
+          zIndex: 2,
+          backgroundColor: bgColor,
+        }}
         avatar={
           <Avatar sx={{ height: 30, width: 30 }}>
             {foodle.author?.firstName.charAt(0).toUpperCase()}
@@ -78,8 +80,16 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
         image={imageSrc}
         alt={foodle.title}
         className="on-hover-grow"
+        sx={{ position: "relative", zIndex: 1, maxHeight: "300px" }}
       />
-      <CardContent sx={{ pb: 0 }}>
+      <CardContent
+        sx={{
+          pb: 0,
+          position: "relative",
+          zIndex: 2,
+          backgroundColor: bgColor,
+        }}
+      >
         <Typography variant="h6">{foodle.title}</Typography>
         <Typography variant="body2" color="text.secondary">
           {foodle.body?.substring(0, 120)}
@@ -87,14 +97,6 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Tooltip title="Favorit">
-          <IconButton
-            aria-label="Zu Favoriten hinzufügen"
-            onClick={addToFavorites}
-          >
-            {values.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </IconButton>
-        </Tooltip>
         <Tooltip title="Teilen">
           <IconButton
             aria-label="share"

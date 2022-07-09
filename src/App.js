@@ -22,7 +22,7 @@ import Categories from "./views/public/Categories";
 import Impressum from "./views/public/Impressum";
 import CookieNotice from "./components/CookieNotice";
 import { CONFIG } from "./utils/config";
-import ChangeLog from "./views/ChangeLog";
+import ChangeLog from "./views/public/ChangeLog";
 
 const AUTH_STATES = {
   waiting: "waiting",

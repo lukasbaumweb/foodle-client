@@ -258,6 +258,7 @@ const EditFoodle = () => {
                 onChange={handleChange}
                 value={values.cookingTime}
                 helperText="Minuten"
+                type="number"
                 fullWidth
               />
             </Grid>
@@ -269,6 +270,7 @@ const EditFoodle = () => {
                 onChange={handleChange}
                 value={values.workTime}
                 helperText="Minuten"
+                type="number"
                 fullWidth
               />
             </Grid>
@@ -280,6 +282,7 @@ const EditFoodle = () => {
                 onChange={handleChange}
                 value={values.totalTime}
                 helperText="Minuten"
+                type="number"
                 fullWidth
               />
             </Grid>
@@ -291,6 +294,7 @@ const EditFoodle = () => {
                 onChange={handleChange}
                 value={values.calories}
                 helperText="kcal"
+                type="number"
                 fullWidth
               />
             </Grid>
