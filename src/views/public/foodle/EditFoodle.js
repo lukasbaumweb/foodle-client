@@ -17,7 +17,6 @@ import FoodleAPI from "../../../utils/api";
 import Loader from "../../../components/Loader";
 import { getLanguage, translate } from "../../../utils/translater";
 import { isObjectEmpty } from "../../../utils/functions";
-import ImageSlider from "../../../components/Images/ImageSlieder";
 import IngredientsList from "../../../components/IngredientsList";
 import TutorialList from "../../../components/TutorialList/index";
 import { useNavigate, useParams } from "react-router-dom";
@@ -181,9 +180,7 @@ const EditFoodle = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <ImageSlider id={id} images={values.images} />
-        </Grid>
+        <Grid item xs={12} md={6}></Grid>
         <Grid item xs={12} md={6}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
