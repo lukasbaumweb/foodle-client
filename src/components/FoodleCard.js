@@ -22,19 +22,28 @@ import { onShare } from "../utils/functions";
 import ROUTES from "../utils/routes";
 import EditIcon from "@mui/icons-material/Edit";
 import { Auth } from "../utils/auth";
+import FoodleAPI from "../utils/api";
 
 const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
   const [values, setValues] = useState({ isFavorite: false });
 
+  console.log(foodle.images);
+
   const isMobileDevice = useMediaQuery("(max-width: 650px)");
 
   const auth = new Auth();
+  const api = new FoodleAPI();
 
   const addToFavorites = () => {
     setValues({ ...values, isFavorite: !values.isFavorite });
   };
 
   const navigate = useNavigate();
+
+  const imageSrc =
+    foodle.images?.length > 0
+      ? api.getPublicImagePath(foodle.images[0].storedName)
+      : Chef;
 
   return (
     <Card sx={{ width: "100%" }}>
@@ -45,11 +54,7 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
             {foodle.author?.firstName.charAt(0).toUpperCase()}
           </Avatar>
         }
-        title={
-          foodle.author
-            ? `${foodle.author?.firstName} ${foodle.author?.lastName}`
-            : "Kein Autor vorhanden"
-        }
+        title={foodle.author ? foodle.author.username : "Kein Autor vorhanden"}
         action={
           foodle.author?._id === auth.getUser()?.uid && (
             <Tooltip title="Bearbeiten">
@@ -70,7 +75,7 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
       <CardMedia
         component="img"
         height={imageSize}
-        image={foodle.img || Chef}
+        image={imageSrc}
         alt={foodle.title}
         className="on-hover-grow"
       />
@@ -95,8 +100,6 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
             aria-label="share"
             onClick={() =>
               onShare(
-                document,
-                navigator,
                 `Schau dir mal dieses Foodle an 😋\n`,
                 window.location.origin +
                   ROUTES.public.viewFoodle.path.replace(":id", foodle._id)

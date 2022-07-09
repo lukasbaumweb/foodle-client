@@ -193,7 +193,6 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
                 const isItemSelected = isSelected(row.name);
                 const labelId = `table-${index}`;
 
-                console.log(row);
                 return (
                   <TableRow
                     hover={!editable}

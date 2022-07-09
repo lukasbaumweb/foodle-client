@@ -26,7 +26,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import ROUTES from "../../../utils/routes";
 import SelectTags from "../../../components/SelectTags";
 import DetailsMenu from "../../../components/DetailsMenu";
-import { capitalize } from "../../../utils/functions";
 
 const EditFoodle = () => {
   const [values, setValues] = useState({
@@ -37,6 +36,10 @@ const EditFoodle = () => {
     tags: [],
     ingredients: [],
     steps: [],
+    cookingTime: 0,
+    workTime: 0,
+    totalTime: 0,
+    calories: 0,
     error: {},
     exists: false,
     loading: true,
@@ -51,6 +54,7 @@ const EditFoodle = () => {
     api
       .getFoodle(id)
       .then(({ data }) => {
+        console.log(data);
         setValues((state) => ({
           ...state,
           ingredients: data?.ingredients,
@@ -95,6 +99,10 @@ const EditFoodle = () => {
       description: values.description,
       category: values.category,
       tags: values.tags.filter((t) => t).map((tag) => tag.name),
+      cookingTime: values.cookingTime || 0,
+      workTime: values.workTime || 0,
+      totalTime: values.totalTime || 0,
+      calories: values.calories || 0,
     };
     const api = new FoodleAPI();
 
@@ -161,10 +169,7 @@ const EditFoodle = () => {
             <Grid item xs={6} display="flex" alignItems="center">
               <Typography variant="body1">
                 {values.title}-Rezept
-                {values.author &&
-                  ` von ${capitalize(values.author.firstName)} ${capitalize(
-                    values.author.lastName
-                  )}`}
+                {values.author && values.author.username}
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -242,6 +247,54 @@ const EditFoodle = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <TutorialList foodleId={id} data={values.steps} editable />
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="cookingTime"
+                label="Zeitaufwand"
+                variant="filled"
+                onChange={handleChange}
+                value={values.cookingTime}
+                helperText="Minuten"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="workTime"
+                label="Arbeitsaufwand"
+                variant="filled"
+                onChange={handleChange}
+                value={values.workTime}
+                helperText="Minuten"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="totalTime"
+                label="Gesamter Aufwand"
+                variant="filled"
+                onChange={handleChange}
+                value={values.totalTime}
+                helperText="Minuten"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <TextField
+                name="calories"
+                label="Kalorien"
+                variant="filled"
+                onChange={handleChange}
+                value={values.calories}
+                helperText="kcal"
+                fullWidth
+              />
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <SelectTags

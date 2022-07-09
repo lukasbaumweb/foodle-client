@@ -129,6 +129,9 @@ class FoodleAPI {
   }
 
   async uploadImages(id, formData, loadingOptions) {
+    for (var [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
     const query = axios.post(`${this.url}/files/foodle/${id}`, formData, {
       ...this.options,
       ...loadingOptions,
@@ -180,6 +183,11 @@ class FoodleAPI {
     const query = axios.get(`${this.url}/changes`, this.options);
     const result = await this.executeQuery(query);
     return result;
+  }
+
+  getPublicImagePath(fileName) {
+    const url = new URL(this.url);
+    return `${url.origin}/foodles/${fileName}`;
   }
 
   async executeQuery(promise) {

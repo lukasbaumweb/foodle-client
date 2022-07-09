@@ -31,7 +31,7 @@ const ToTopButton = (props) => {
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{ position: "fixed", bottom: 25, right: 100 }}
+        sx={{ position: "fixed", bottom: 25, right: 25 }}
       >
         <Fab color="secondary" size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />

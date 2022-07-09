@@ -10,8 +10,10 @@ import {
   Stack,
   Tooltip,
   Typography,
+  IconButton,
+  Button,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FoodleAPI from "../../../utils/api";
 import Chef from "../../../assets/svg/chef.svg";
 import IngredientsList from "../../../components/IngredientsList";
@@ -21,6 +23,11 @@ import CallMadeIcon from "@mui/icons-material/CallMade";
 import TimelapseIcon from "@mui/icons-material/Timelapse";
 import TimerIcon from "@mui/icons-material/Timer";
 import TutorialList from "../../../components/TutorialList";
+import EditIcon from "@mui/icons-material/Edit";
+import ShareIcon from "@mui/icons-material/Share";
+import { Auth } from "../../../utils/auth";
+import ROUTES from "../../../utils/routes";
+import { onShare } from "../../../utils/functions";
 
 const Foodle = () => {
   const [values, setValues] = useState({
@@ -32,8 +39,10 @@ const Foodle = () => {
     errors: {},
     loading: true,
   });
-
+  const auth = new Auth();
+  const api = new FoodleAPI();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -61,13 +70,43 @@ const Foodle = () => {
 
   if (values.loading) return <Loader />;
 
+  const imageSrc =
+    values.foodle.images?.length > 0
+      ? api.getPublicImagePath(values.foodle.images[0].storedName)
+      : Chef;
+
+  console.log(auth.getUser());
+
   return (
     <Container maxWidth="xl">
       <Grid container sx={{ mt: 3 }} spacing={2}>
+        <Grid item xs={12} display="flex" justifyContent="flex-end">
+          <Button
+            onClick={() =>
+              onShare(
+                `Schau dir mal dieses Foodle an 😋\n`,
+                ROUTES.public.viewFoodle.path.replace(":id", id)
+              )
+            }
+            startIcon={<ShareIcon />}
+          >
+            Teilen
+          </Button>
+          {auth.getUser()?.uid === values.foodle.author?._id && (
+            <Button
+              onClick={() =>
+                navigate(ROUTES.private.editFoodle.path.replace(":id", id))
+              }
+              startIcon={<EditIcon />}
+            >
+              Bearbeiten
+            </Button>
+          )}
+        </Grid>
         <Grid item xs={12} md={6} xl={4}>
           <Card sx={{ padding: 1, textAlign: "center" }}>
             <img
-              src={Chef}
+              src={imageSrc}
               style={{ width: "100%", maxHeight: "500px" }}
               alt={values.foodle.title}
             />

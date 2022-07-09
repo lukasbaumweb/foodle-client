@@ -52,7 +52,11 @@ const ChangeLog = () => {
             <TimelineContent sx={{ flex: 4 }}>
               <ul>
                 {changes.map(({ text, type }) => (
-                  <li>{text}</li>
+                  <li
+                    style={{ fontWeight: type === "bug-fix" ? 600 : "initial" }}
+                  >
+                    {text}
+                  </li>
                 ))}
               </ul>
             </TimelineContent>

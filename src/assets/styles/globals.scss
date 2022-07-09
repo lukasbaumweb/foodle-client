@@ -3,9 +3,9 @@ a {
 }
 
 .on-hover-grow {
-  transition: transform 0.15s ease-in-out;
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .on-hover-grow:hover {
-  transform: scale3d(1.05, 1.05, 1);
+  transform: scale3d(1.1, 1.1, 1);
 }

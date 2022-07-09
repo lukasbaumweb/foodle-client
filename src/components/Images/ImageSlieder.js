@@ -144,7 +144,7 @@ const ImageSlider = ({ id }) => {
           </Box>
         )}
       </Box>
-      {values.images.length > 0 && (
+      {values.images.length > 1 && (
         <MobileStepper
           variant="dots"
           steps={maxSteps}
