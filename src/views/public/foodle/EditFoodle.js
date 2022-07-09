@@ -23,6 +23,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ROUTES from "../../../utils/routes";
 import SelectTags from "../../../components/SelectTags";
 import DetailsMenu from "../../../components/DetailsMenu";
+import UploadImage from "../../../components/UploadImage";
 
 const EditFoodle = () => {
   const [values, setValues] = useState({
@@ -51,7 +52,6 @@ const EditFoodle = () => {
     api
       .getFoodle(id)
       .then(({ data }) => {
-        console.log(data);
         setValues((state) => ({
           ...state,
           ingredients: data?.ingredients,
@@ -180,7 +180,9 @@ const EditFoodle = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6}></Grid>
+        <Grid item xs={12} md={6}>
+          <UploadImage id={id} />
+        </Grid>
         <Grid item xs={12} md={6}>
           <Grid container spacing={2}>
             <Grid item xs={12}>

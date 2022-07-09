@@ -53,8 +53,6 @@ const Settings = () => {
     const api = new FoodleAPI();
     const auth = new Auth();
 
-    console.log(auth.getUser());
-
     setValues((state) => ({ ...state, ...auth.getUser() }));
     return () => {};
   }, []);

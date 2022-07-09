@@ -78,7 +78,6 @@ const CreateFoodle = () => {
     api
       .createFoodle(payload)
       .then((result) => {
-        console.log(result);
         const id = result.data._id;
         navigate(ROUTES.private.editFoodle.path.replace(":id", id));
       })

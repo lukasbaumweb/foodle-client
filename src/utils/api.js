@@ -128,9 +128,6 @@ class FoodleAPI {
   }
 
   async uploadImages(id, formData, loadingOptions) {
-    for (var [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
     const query = axios.post(`${this.url}/files/foodle/${id}`, formData, {
       ...this.options,
       ...loadingOptions,

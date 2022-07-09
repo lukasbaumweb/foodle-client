@@ -50,7 +50,6 @@ const Foodle = () => {
       api
         .getPublicFoodle(id)
         .then(({ data }) => {
-          console.log(data);
           setValues((state) => ({
             ...state,
             foodle: data,
@@ -73,8 +72,6 @@ const Foodle = () => {
     values.foodle.images?.length > 0
       ? api.getPublicImagePath(values.foodle.images[0].storedName)
       : Chef;
-
-  console.log(auth.getUser());
 
   return (
     <Container maxWidth="xl">

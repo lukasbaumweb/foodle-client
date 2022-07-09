@@ -119,7 +119,6 @@ const TutorialList = React.memo(({ foodleId, data, editable }) => {
     api
       .updateFoodle(foodleId, { steps: values.steps })
       .then((result) => {
-        console.log(result);
         setValues({ ...values, loading: false, isDirty: false });
       })
       .catch((err) => {

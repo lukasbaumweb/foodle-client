@@ -213,7 +213,7 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
                     <TableCell component="th" id={labelId} scope="row">
                       {row.config?.name || row.name || "Zutat unbekannt"}
                     </TableCell>
-                    <TableCell>{amount}</TableCell>
+                    <TableCell>{amount.toString().replace(".", ",")}</TableCell>
                     <TableCell align="right" sx={{ width: "auto" }}>
                       <IconButton
                         size="small"
