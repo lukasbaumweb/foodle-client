@@ -60,12 +60,7 @@ const Home = () => {
         <Grid item xs={12} sx={{ marginBottom: 2 }}>
           <Container maxWidth="md">
             <Box display="flex" justifyContent="center" marginBottom={2}>
-              <img
-                src={FoodBoy}
-                width="50%"
-                style={{ minHeight: "300px" }}
-                alt="Foodboy"
-              />
+              <img src={FoodBoy} width="50%" alt="Foodboy" />
             </Box>
             <Typography variant="h3" textAlign="center">
               Willkommen bei Foodle!
