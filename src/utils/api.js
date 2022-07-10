@@ -181,11 +181,6 @@ class FoodleAPI {
     return result;
   }
 
-  getPublicImagePath(fileName) {
-    const url = new URL(this.url);
-    return `${url.origin}/foodles/${fileName}`;
-  }
-
   async executeQuery(promise) {
     try {
       const result = await promise;
