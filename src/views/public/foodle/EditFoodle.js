@@ -19,11 +19,11 @@ import { getLanguage, translate } from "../../../utils/translater";
 import { isObjectEmpty } from "../../../utils/functions";
 import IngredientsList from "../../../components/IngredientsList";
 import TutorialList from "../../../components/TutorialList/index";
-import { useNavigate, useParams } from "react-router-dom";
-import ROUTES from "../../../utils/routes";
+import { useParams } from "react-router-dom";
 import SelectTags from "../../../components/SelectTags";
-import DetailsMenu from "../../../components/DetailsMenu";
 import UploadImage from "../../../components/UploadImage";
+import SwitchPublishStatus from "../../../components/SwitchPublishStatus";
+import DeleteFoodleButton from "../../../components/DeleteFoodleButton";
 
 const EditFoodle = () => {
   const [values, setValues] = useState({
@@ -44,7 +44,6 @@ const EditFoodle = () => {
   });
 
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const api = new FoodleAPI();
@@ -120,28 +119,6 @@ const EditFoodle = () => {
     }
   };
 
-  const deleteFoodle = async () => {
-    const api = new FoodleAPI();
-    try {
-      await api.deleteFoodle(id);
-      navigate(ROUTES.public.foodles.path);
-    } catch (err) {
-      console.error(err);
-      setValues({ ...values });
-    }
-  };
-
-  const publishFoodle = async () => {
-    const api = new FoodleAPI();
-    try {
-      await api.updateFoodle(id, { isPrivate: !values.isPrivate });
-      setValues({ ...values, isPrivate: !values.isPrivate });
-    } catch (err) {
-      console.error(err);
-      setValues({ ...values });
-    }
-  };
-
   if (!values.exists)
     return (
       <Container sx={{ pt: 3 }}>
@@ -163,19 +140,10 @@ const EditFoodle = () => {
       <Grid container spacing={3} component="form" onSubmit={onSubmit}>
         <Grid item xs={12}>
           <Grid container>
-            <Grid item xs={6} display="flex" alignItems="center">
-              <Typography variant="body1">
-                {values.title}-Rezept
-                {values.author && values.author.username}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Box display="flex" justifyContent="flex-end">
-                <DetailsMenu
-                  onDelete={deleteFoodle}
-                  onPublish={publishFoodle}
-                  isPrivate={values.isPrivate}
-                />
+                <SwitchPublishStatus isPrivate={values.isPrivate} id={id} />
+                <DeleteFoodleButton id={id} />
               </Box>
             </Grid>
           </Grid>
