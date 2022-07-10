@@ -27,7 +27,6 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
   const isMobileDevice = useMediaQuery("(max-width: 650px)");
 
   const auth = new Auth();
-  const api = new FoodleAPI();
   const theme = useTheme();
 
   const bgColor =
@@ -35,10 +34,7 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
 
   const navigate = useNavigate();
 
-  let imageSrc =
-    foodle.images?.length > 0
-      ? api.getPublicImagePath(foodle.images[0].storedName)
-      : Chef;
+  let imageSrc = foodle.images?.length > 0 ? foodle.images[0].publicUrl : Chef;
 
   return (
     <Card sx={{ width: "100%" }}>

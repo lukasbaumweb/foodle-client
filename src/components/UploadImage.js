@@ -20,7 +20,6 @@ const UploadImage = ({ id }) => {
     image: AddFiles,
     progress: null,
   });
-  const api = new FoodleAPI();
 
   useEffect(() => {
     const api = new FoodleAPI();
@@ -29,7 +28,7 @@ const UploadImage = ({ id }) => {
       .then(({ data }) => {
         if (data.images.length > 0) {
           const image = data.images[0];
-          const url = api.getPublicImagePath(image.storedName);
+          const url = image.publicUrl;
 
           setValues((state) => ({
             ...state,
@@ -59,11 +58,10 @@ const UploadImage = ({ id }) => {
   };
 
   const uploadImage = (image) => {
-    const api = new FoodleAPI();
-
     const formData = new FormData();
     try {
       formData.append("files", image);
+      const api = new FoodleAPI();
 
       api
         .uploadImages(id, formData, loadingOptions)
@@ -84,9 +82,11 @@ const UploadImage = ({ id }) => {
   };
 
   const deleteImage = () => {
+    const api = new FoodleAPI();
+
     api
       .deleteFoodleImage(id, values.imageId)
-      .then((res) => {
+      .then(() => {
         setValues({
           ...values,
           image: AddFiles,
@@ -159,6 +159,7 @@ const UploadImage = ({ id }) => {
                 onChange={(e) => {
                   uploadImage(e.target.files[0]);
                 }}
+                disabled={values.imageId !== null}
                 hidden
               />
             </CardContent>

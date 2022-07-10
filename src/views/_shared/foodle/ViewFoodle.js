@@ -39,7 +39,6 @@ const Foodle = () => {
     loading: true,
   });
   const auth = new Auth();
-  const api = new FoodleAPI();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -69,9 +68,7 @@ const Foodle = () => {
   if (values.loading) return <Loader />;
 
   const imageSrc =
-    values.foodle.images?.length > 0
-      ? api.getPublicImagePath(values.foodle.images[0].storedName)
-      : Chef;
+    values.foodle.images?.length > 0 ? values.foodle.images[0].publicUrl : Chef;
 
   return (
     <Container maxWidth="xl">
