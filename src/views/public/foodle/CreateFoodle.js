@@ -18,7 +18,7 @@ import {
 import { getLanguage, translate } from "../../../utils/translater";
 import { isObjectEmpty } from "../../../utils/functions";
 import { useNavigate } from "react-router-dom";
-import AddFiles from "../../../assets/svg/add-files.svg";
+import NoImage from "../../../assets/images/no-image.png";
 import FoodleAPI from "../../../utils/api";
 import Loader from "../../../components/Loader";
 import ROUTES from "../../../utils/routes";
@@ -111,7 +111,7 @@ const CreateFoodle = () => {
                 component="img"
                 height="200"
                 sx={{ width: "auto", p: 1 }}
-                image={AddFiles}
+                image={NoImage}
                 alt="Bild hinzufügen"
               />
               <CardContent>

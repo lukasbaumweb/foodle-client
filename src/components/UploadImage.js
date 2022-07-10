@@ -10,14 +10,14 @@ import {
   CircularProgress,
   Typography,
 } from "@mui/material";
-import AddFiles from "../assets/svg/add-files.svg";
+import NoImage from "../assets/images/no-image.png";
 import FoodleAPI from "../utils/api";
 
 const UploadImage = ({ id }) => {
   const [values, setValues] = useState({
     loading: true,
     imageId: null,
-    image: AddFiles,
+    image: NoImage,
     progress: null,
   });
 
@@ -39,7 +39,7 @@ const UploadImage = ({ id }) => {
         } else {
           setValues((state) => ({
             ...state,
-            image: AddFiles,
+            image: NoImage,
             loading: false,
           }));
         }
@@ -89,7 +89,7 @@ const UploadImage = ({ id }) => {
       .then(() => {
         setValues({
           ...values,
-          image: AddFiles,
+          image: NoImage,
           imageId: null,
         });
       })
@@ -143,7 +143,11 @@ const UploadImage = ({ id }) => {
           <CardActionArea component="label" htmlFor="uploadBtn">
             <CardMedia
               component="img"
-              height="400"
+              sx={{
+                maxHeight: "400px",
+                height: "100%",
+                backgroundSize: "contain",
+              }}
               image={values.image}
               alt="Foodle hochladen"
             />

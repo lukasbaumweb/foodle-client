@@ -14,14 +14,13 @@ import {
   useTheme,
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
-import Chef from "../assets/svg/chef.svg";
+import NoImage from "../assets/images/no-image.png";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import { useNavigate } from "react-router-dom";
 import { onShare } from "../utils/functions";
 import ROUTES from "../utils/routes";
 import EditIcon from "@mui/icons-material/Edit";
 import { Auth } from "../utils/auth";
-import FoodleAPI from "../utils/api";
 
 const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
   const isMobileDevice = useMediaQuery("(max-width: 650px)");
@@ -34,7 +33,8 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
 
   const navigate = useNavigate();
 
-  let imageSrc = foodle.images?.length > 0 ? foodle.images[0].publicUrl : Chef;
+  let imageSrc =
+    foodle.images?.length > 0 ? foodle.images[0].publicUrl : NoImage;
 
   return (
     <Card sx={{ width: "100%" }}>
@@ -74,8 +74,8 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
         image={imageSrc}
         alt={"Foodle Bild nicht gefunden"}
         onError={(e) => {
-          imageSrc = Chef;
-          e.target.src = Chef;
+          imageSrc = NoImage;
+          e.target.src = NoImage;
         }}
         className="on-hover-grow"
         sx={{ position: "relative", zIndex: 1, maxHeight: "300px" }}
