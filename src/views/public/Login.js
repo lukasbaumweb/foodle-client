@@ -78,7 +78,7 @@ const Login = () => {
 
     const auth = new Auth();
     auth
-      .login(values.email.toLowerCase(), values.password)
+      .login(values.email.trim().toLowerCase(), values.password)
       .then(() => {
         window.location.href = "/";
       })

@@ -91,7 +91,7 @@ const Register = () => {
         firstName: values.firstName,
         lastName: values.lastName,
         username: values.username,
-        email: values.email.toLowerCase(),
+        email: values.email.trim().toLowerCase(),
         password: values.password,
       })
       .then((result) => {
