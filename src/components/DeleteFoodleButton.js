@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -19,7 +20,7 @@ const Alert = React.forwardRef((props, ref) => {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const DeleteFoodleButton = ({ id }) => {
+const DeleteFoodleButton = ({ id, ...props }) => {
   const [values, setValues] = useState({ open: false, dialogOpen: false });
 
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const DeleteFoodleButton = ({ id }) => {
   };
 
   return (
-    <>
+    <Box {...props}>
       <IconButton
         color="error"
         onClick={() => setValues({ ...values, dialogOpen: true })}
@@ -78,7 +79,7 @@ const DeleteFoodleButton = ({ id }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 };
 

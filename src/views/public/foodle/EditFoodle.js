@@ -141,9 +141,9 @@ const EditFoodle = () => {
         <Grid item xs={12}>
           <Grid container>
             <Grid item xs={12}>
-              <Box display="flex" justifyContent="flex-end">
+              <Box display="flex" justifyContent="flex-end" alignItems="center">
                 <SwitchPublishStatus isPrivate={values.isPrivate} id={id} />
-                <DeleteFoodleButton id={id} />
+                <DeleteFoodleButton id={id} sx={{ ml: 2 }} />
               </Box>
             </Grid>
           </Grid>
