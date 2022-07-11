@@ -31,10 +31,7 @@ import { onShare } from "../../../utils/functions";
 const Foodle = () => {
   const [values, setValues] = useState({
     foodle: {},
-    category: "",
     categories: [],
-    tags: [],
-    ingredients: [],
     errors: {},
     loading: true,
   });
@@ -159,6 +156,11 @@ const Foodle = () => {
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
           <TutorialList data={values.foodle.steps} />
+        </Grid>
+        <Grid item xs={12}>
+          {values.foodle.tags.map((tag) => (
+            <Chip label={tag} variant="outlined" sx={{ mt: 1, ml: 1 }} />
+          ))}
         </Grid>
         <Grid item xs={12} md={12} xl={4}>
           <Grid container spacing={1}>

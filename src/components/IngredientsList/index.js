@@ -39,43 +39,15 @@ const EnhancedTableToolbar = (props) => {
         pr: { xs: 1, sm: 1 },
       }}
     >
-      {rowCount > 0 && !editable && (
-        <ToggleButton
-          variant="outlined"
-          onClick={onSelectAllClick}
-          sx={{ mr: 2 }}
-          value={allSelected ? "all" : "none"}
-          selected={allSelected}
-        >
-          {allSelected ? "Keine" : "Alle"}
-        </ToggleButton>
-      )}
-      {numSelected > 0 && !editable ? (
-        <>
-          <Typography
-            sx={{ flex: "1 1 100%" }}
-            color="inherit"
-            variant="subtitle1"
-            component="div"
-          >
-            {numSelected} ausgewählt
-          </Typography>
-          <Tooltip title="Zur Einkaufsliste hinzufügen">
-            <IconButton>
-              <AddShoppingCartIcon />
-            </IconButton>
-          </Tooltip>
-        </>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Zutaten
-        </Typography>
-      )}
+      <Typography
+        sx={{ flex: "1 1 100%" }}
+        variant="h6"
+        id="tableTitle"
+        component="div"
+      >
+        Zutaten
+      </Typography>
+
       {editable && (
         <Tooltip title="Zutat hinzufügen">
           <IconButton onClick={onOpenDialog}>
@@ -214,14 +186,16 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
                       {row.config?.name || row.name || "Zutat unbekannt"}
                     </TableCell>
                     <TableCell>{amount.toString().replace(".", ",")}</TableCell>
-                    <TableCell align="right" sx={{ width: "auto" }}>
-                      <IconButton
-                        size="small"
-                        onClick={removeIngredient(index)}
-                      >
-                        <DeleteIcon color="error" />
-                      </IconButton>
-                    </TableCell>
+                    {editable && (
+                      <TableCell align="right" sx={{ width: "auto" }}>
+                        <IconButton
+                          size="small"
+                          onClick={removeIngredient(index)}
+                        >
+                          <DeleteIcon color="error" />
+                        </IconButton>
+                      </TableCell>
+                    )}
                   </TableRow>
                 );
               })}
