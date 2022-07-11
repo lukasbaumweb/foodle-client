@@ -9,6 +9,7 @@ import {
   DialogTitle,
   IconButton,
   Snackbar,
+  Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
@@ -42,12 +43,14 @@ const DeleteFoodleButton = ({ id, ...props }) => {
 
   return (
     <Box {...props}>
-      <IconButton
-        color="error"
-        onClick={() => setValues({ ...values, dialogOpen: true })}
-      >
-        <DeleteIcon />
-      </IconButton>
+      <Tooltip title="Foodle löschen">
+        <IconButton
+          color="error"
+          onClick={() => setValues({ ...values, dialogOpen: true })}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
       <Snackbar
         open={values.open}
         autoHideDuration={6000}

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import FoodleAPI from "../../../utils/api";
-import Chef from "../../../assets/svg/chef.svg";
+import NoImage from "../../../assets/images/no-image.png";
 import IngredientsList from "../../../components/IngredientsList";
 import Loader from "../../../components/Loader";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -68,11 +68,13 @@ const Foodle = () => {
   if (values.loading) return <Loader />;
 
   const imageSrc =
-    values.foodle.images?.length > 0 ? values.foodle.images[0].publicUrl : Chef;
+    values.foodle.images?.length > 0
+      ? values.foodle.images[0].publicUrl
+      : NoImage;
 
   return (
     <Container maxWidth="xl">
-      <Grid container sx={{ mt: 3 }} spacing={2}>
+      <Grid container sx={{ mt: 1 }} spacing={2}>
         <Grid item xs={12} display="flex" justifyContent="flex-end">
           <Button
             onClick={() =>

@@ -109,10 +109,13 @@ const CreateFoodle = () => {
             <Card>
               <CardMedia
                 component="img"
-                height="200"
-                sx={{ width: "auto", p: 1 }}
+                sx={{
+                  maxHeight: "300px",
+                  height: "100%",
+                  backgroundSize: "contain",
+                }}
                 image={NoImage}
-                alt="Bild hinzufügen"
+                alt="Foodle hochladen"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

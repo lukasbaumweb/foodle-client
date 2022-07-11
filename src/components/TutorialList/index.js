@@ -26,7 +26,7 @@ import { v4 as uuidv4 } from "uuid";
 import { LoadingButton } from "@mui/lab";
 import FoodleAPI from "../../utils/api";
 
-const TutorialList = React.memo(({ foodleId, data, editable }) => {
+const TutorialList = React.memo(({ foodleId, data, editable = false }) => {
   const [values, setValues] = useState({
     steps: data || [],
     title: "",

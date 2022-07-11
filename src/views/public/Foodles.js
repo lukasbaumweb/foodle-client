@@ -28,9 +28,9 @@ const Foodles = () => {
     pages: 0,
     perPage: DEFAULT_VISIBLE_ITEMS,
   });
-  let [searchParams] = useSearchParams();
 
-  let query = searchParams.get("q") || "";
+  const [params] = useSearchParams();
+  const query = params.get("q");
 
   const isLessThan1000 = useMediaQuery("(max-width: 1000px)");
   const isLessThan650 = useMediaQuery("(max-width: 650px)");
@@ -38,13 +38,16 @@ const Foodles = () => {
   const fetchFoodles = useCallback(() => {
     const api = new FoodleAPI();
 
+    const filter = {
+      page: values.page,
+      limit: values.perPage,
+    };
+
+    if (query) filter["text"] = query;
+
     api
       .getFoodles({
-        filter: {
-          page: values.page,
-          limit: values.perPage,
-          text: query,
-        },
+        filter,
       })
       .then((result) => {
         setValues((state) => ({ ...state, ...result.data, loading: false }));
@@ -114,7 +117,7 @@ const Foodles = () => {
         <Pagination
           count={values.pages}
           onChange={(_e, newValue) => setValues({ ...values, page: newValue })}
-          sx={{ marginX: 2 }}
+          sx={{ marginX: 2, mt: 2 }}
           showFirstButton
           showLastButton
         />

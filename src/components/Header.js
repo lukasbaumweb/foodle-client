@@ -251,6 +251,9 @@ const Header = () => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
+        <MenuItem onClick={() => onNavigate(ROUTES.private.createFoodle.path)}>
+          Foodle erstellen
+        </MenuItem>
         <MenuItem onClick={() => onNavigate(ROUTES.private.myFoodles.path)}>
           Meine Foodles
         </MenuItem>

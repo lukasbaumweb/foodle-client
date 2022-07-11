@@ -246,6 +246,7 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
                       <FilledInput
                         id="portion-input"
                         type="number"
+                        name="countPortions"
                         value={values.countPortions}
                         onChange={handleChange}
                         endAdornment={
