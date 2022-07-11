@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  ToggleButton,
   IconButton,
   Paper,
   Table,
@@ -18,8 +17,6 @@ import {
   Box,
 } from "@mui/material";
 
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-
 import DeleteIcon from "@mui/icons-material/Delete";
 import { CODES, translate } from "../../utils/translater";
 import { Entity, getLocalStorage } from "../../utils/functions";
@@ -28,9 +25,7 @@ import AddIngredientDialog from "./AddIngredientDialog";
 import FoodleAPI from "../../utils/api";
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, onSelectAllClick, rowCount, editable, onOpenDialog } =
-    props;
-  const allSelected = rowCount > 0 && numSelected === rowCount;
+  const { editable, onOpenDialog } = props;
 
   return (
     <Toolbar
@@ -83,15 +78,6 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
   }, []);
 
   const [selected, setSelected] = React.useState([]);
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.value === "none") {
-      const newSelecteds = values.ingredients.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
 
   const handleChange = (e) =>
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -152,9 +138,6 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
     <Box>
       <Paper sx={{ pb: 2 }}>
         <EnhancedTableToolbar
-          numSelected={selected.length}
-          onSelectAllClick={handleSelectAllClick}
-          rowCount={values.ingredients.length}
           editable={editable}
           onOpenDialog={() => setValues({ ...values, open: true })}
         />
@@ -165,7 +148,9 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
                 const isItemSelected = isSelected(row.name);
                 const labelId = `table-${index}`;
 
-                let amount = `${row.amount * values.countPortions} ${
+                let amount = `${(row.amount * values.countPortions)
+                  .toString()
+                  .replace(".", ",")} ${
                   translate(CODES.FOOD_UNITS, row.unit)?.abbr
                 }`;
                 if (["pinch", "some"].indexOf(row.unit) > -1) {
@@ -185,7 +170,7 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
                     <TableCell component="th" id={labelId} scope="row">
                       {row.config?.name || row.name || "Zutat unbekannt"}
                     </TableCell>
-                    <TableCell>{amount.toString().replace(".", ",")}</TableCell>
+                    <TableCell>{amount}</TableCell>
                     {editable && (
                       <TableCell align="right" sx={{ width: "auto" }}>
                         <IconButton

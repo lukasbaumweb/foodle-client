@@ -88,7 +88,7 @@ class FoodleAPI {
 
   async getPublicFoodle(id) {
     const query = axios.get(
-      `${this.url}/foodle/type/public/${id}`,
+      `${this.url}/foodle/${id}`,
       this.options
     );
     const result = await this.executeQuery(query);

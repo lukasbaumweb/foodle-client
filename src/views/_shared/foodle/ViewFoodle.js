@@ -158,8 +158,13 @@ const Foodle = () => {
           <TutorialList data={values.foodle.steps} />
         </Grid>
         <Grid item xs={12}>
-          {values.foodle.tags.map((tag) => (
-            <Chip label={tag} variant="outlined" sx={{ mt: 1, ml: 1 }} />
+          {values.foodle.tags.map((tag, index) => (
+            <Chip
+              label={tag}
+              variant="outlined"
+              sx={{ mt: 1, mr: 1 }}
+              key={index}
+            />
           ))}
         </Grid>
         <Grid item xs={12} md={12} xl={4}>
