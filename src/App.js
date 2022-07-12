@@ -4,7 +4,7 @@ import Layout from "./Layout";
 import NoMatch from "./views/public/NoMatch";
 import About from "./views/public/About";
 import Home from "./views/Home";
-import Settings from "./views/_shared/Settings";
+import Settings from "./views/_shared/Settings/Settings";
 import { Auth } from "./utils/auth";
 import Loader from "./components/Loader";
 import ROUTES from "./utils/routes";

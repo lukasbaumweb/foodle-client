@@ -36,6 +36,7 @@ class FoodleAPI {
       this.options = {
         headers: {
           Authorization: `Bearer ${this.authToken}`,
+          "Access-Control-Allow-Origin": this.url || "*",
         },
       };
     else this.options = {};
@@ -45,6 +46,16 @@ class FoodleAPI {
     let searchParams = "";
     if (props.filter) searchParams = generateSearchUrl(props.filter);
     const query = axios.get(`${this.url}/foodle${searchParams}`, this.options);
+    const result = await this.executeQuery(query);
+    return result;
+  }
+
+  async getFoodlesByQuery(filter) {
+    let searchParams = generateSearchUrl(filter);
+    const query = axios.get(
+      `${this.url}/foodle/query/all${searchParams}`,
+      this.options
+    );
     const result = await this.executeQuery(query);
     return result;
   }
@@ -87,10 +98,7 @@ class FoodleAPI {
   }
 
   async getPublicFoodle(id) {
-    const query = axios.get(
-      `${this.url}/foodle/${id}`,
-      this.options
-    );
+    const query = axios.get(`${this.url}/foodle/${id}`, this.options);
     const result = await this.executeQuery(query);
     return result;
   }
@@ -143,32 +151,6 @@ class FoodleAPI {
     return result;
   }
 
-  async post(collection, { id, data }) {
-    const query = axios.post(
-      `${this.url}/${collection}/${id}`,
-      { data },
-      this.options
-    );
-    const result = await this.executeQuery(query);
-    return result;
-  }
-
-  async put(collection, { id, data }) {
-    const query = axios.put(
-      `${this.url}/${collection}/${id}`,
-      data,
-      this.options
-    );
-    const result = await this.executeQuery(query);
-    return result;
-  }
-
-  async delete(collection, id) {
-    const query = axios.delete(`${this.url}/${collection}/${id}`, this.options);
-    const result = await this.executeQuery(query);
-    return result;
-  }
-
   async getVersion() {
     const query = axios.get(`${this.url}/`, this.options);
     const result = await this.executeQuery(query);
@@ -177,6 +159,12 @@ class FoodleAPI {
 
   async getChangelog() {
     const query = axios.get(`${this.url}/changes`, this.options);
+    const result = await this.executeQuery(query);
+    return result;
+  }
+
+  async getCurrentUser() {
+    const query = axios.get(`${this.url}/auth/user`, this.options);
     const result = await this.executeQuery(query);
     return result;
   }

@@ -197,8 +197,8 @@ const TutorialList = React.memo(({ foodleId, data, editable = false }) => {
                 : "Zubereitungsschritte"
             }
           />
-          <CardContent>
-            <List sx={{ py: 2 }}>
+          <CardContent sx={{ pt: 0 }}>
+            <List sx={{ pb: 2 }}>
               {values.steps.map((item, index) =>
                 renderCard(
                   item.title,

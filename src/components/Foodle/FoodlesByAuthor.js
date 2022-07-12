@@ -16,14 +16,25 @@ const FoodlesByAuthor = ({ uid }) => {
     api
       .getMyFoodles({ filter: { author: uid } })
       .then((result) => {
-        setValues((state) => ({ ...state, foodles: result.data || [] }));
+        setValues((state) => ({
+          ...state,
+          foodles: result.data || [],
+          loading: false,
+        }));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setValues((state) => ({
+          ...state,
+          foodles: [],
+          loading: false,
+        }));
+      });
 
     return () => {};
   }, [uid]);
 
-  if (values.loading) <Loader />;
+  if (values.loading) return <Loader />;
 
   return (
     <Box>

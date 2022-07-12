@@ -4,7 +4,9 @@ import { CONFIG } from "./config";
 /**
  * Determines how long a session should be valid (currently: 7 days)
  */
-const EXPIRY_TIME = 1000 * 60 * 60 * 7;
+const EXPIRY_TIME = 1000; //* 60 * 60 * 7;
+
+const CHECK_SESSION = 5000;
 
 const EVENTS = {
   authStateChanged: "authStateChanged",
@@ -36,7 +38,7 @@ class Auth {
   }
 
   async refresh() {
-    this._api.isLoggedIn();
+    await this._api.isLoggedIn();
   }
 
   async login(email, password) {
@@ -65,6 +67,10 @@ class Auth {
     } else {
       window.location.href = "/logout";
     }
+  }
+
+  async getCurrentUser() {
+    return this._api.getCurrentUser();
   }
 
   static getAuthToken() {

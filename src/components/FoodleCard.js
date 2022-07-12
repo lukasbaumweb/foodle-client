@@ -47,7 +47,7 @@ const FoodleCard = ({ foodle = {}, imageSize = "auto" }) => {
         }}
         avatar={
           <Avatar sx={{ height: 30, width: 30 }}>
-            {foodle.author?.firstName.charAt(0).toUpperCase()}
+            {foodle.author?.username.charAt(0).toUpperCase()}
           </Avatar>
         }
         title={foodle.author ? foodle.author.username : "Kein Autor vorhanden"}

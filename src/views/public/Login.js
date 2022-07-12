@@ -82,13 +82,14 @@ const Login = () => {
       .then(() => {
         window.location.href = "/";
       })
-      .catch((err) =>
+      .catch((err) => {
+        console.log(err.message);
         setValues({
           ...values,
           errors: { all: translate(err.message) },
           loading: false,
-        })
-      );
+        });
+      });
   };
 
   const handleChange = (e) =>
@@ -127,8 +128,6 @@ const Login = () => {
           <TextField
             variant="filled"
             margin="normal"
-            required
-            fullWidth
             id="email"
             label="E-Mail Adresse"
             name="email"
@@ -137,9 +136,11 @@ const Login = () => {
             value={values.email}
             error={values.errors["email"]?.length > 0}
             helperText={values.errors["email"]}
+            required
+            fullWidth
           />
 
-          <FormControl variant="filled" sx={{ my: 3 }} fullWidth>
+          <FormControl variant="filled" sx={{ my: 3 }} fullWidth required>
             <InputLabel htmlFor="password">Passwort</InputLabel>
             <FilledInput
               id="password"

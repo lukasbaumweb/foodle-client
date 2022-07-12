@@ -77,31 +77,8 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
     return () => {};
   }, []);
 
-  const [selected, setSelected] = React.useState([]);
-
   const handleChange = (e) =>
     setValues({ ...values, [e.target.name]: e.target.value });
-
-  const handleClick = (name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const removeIngredient = (index) => async () => {
     const ingredients = values.ingredients;
@@ -145,7 +122,6 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
           <Table size={"small"}>
             <TableBody>
               {values.ingredients.map((row, index) => {
-                const isItemSelected = isSelected(row.name);
                 const labelId = `table-${index}`;
 
                 let amount = `${(row.amount * values.countPortions)
@@ -159,18 +135,15 @@ const IngredientsList = ({ data = [], foodleId, editable = false }) => {
 
                 return (
                   <TableRow
-                    hover={!editable}
-                    onClick={editable ? undefined : () => handleClick(row.name)}
+                    hover={editable}
                     role="checkbox"
-                    aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={index}
-                    selected={isItemSelected}
                   >
+                    <TableCell align="right">{amount}</TableCell>
                     <TableCell component="th" id={labelId} scope="row">
                       {row.config?.name || row.name || "Zutat unbekannt"}
                     </TableCell>
-                    <TableCell>{amount}</TableCell>
                     {editable && (
                       <TableCell align="right" sx={{ width: "auto" }}>
                         <IconButton

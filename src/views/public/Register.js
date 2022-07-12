@@ -82,7 +82,6 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
-    // setValues({ ...values, loading: true, errors: {} });
 
     const auth = new Auth();
 
@@ -94,7 +93,7 @@ const Register = () => {
         email: values.email.trim().toLowerCase(),
         password: values.password,
       })
-      .then((result) => {
+      .then(() => {
         window.location.href = ROUTES.private.home.path;
       })
       .catch((err) => {

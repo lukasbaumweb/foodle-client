@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
   Chip,
   Container,
   Grid,
@@ -11,6 +7,8 @@ import {
   Tooltip,
   Typography,
   Button,
+  Avatar,
+  Box,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import FoodleAPI from "../../../utils/api";
@@ -27,6 +25,10 @@ import ShareIcon from "@mui/icons-material/Share";
 import { Auth } from "../../../utils/auth";
 import ROUTES from "../../../utils/routes";
 import { onShare } from "../../../utils/functions";
+import ImageModal from "../../../components/ImageModal";
+import SuggestionCard from "../../../components/SuggestionCard";
+
+const MAIN_CATEGORIES = ["Vorspeise", "Hauptgericht", "Nachspeise"];
 
 const Foodle = () => {
   const [values, setValues] = useState({
@@ -69,10 +71,23 @@ const Foodle = () => {
       ? values.foodle.images[0].publicUrl
       : NoImage;
 
+  const possibleCombination = MAIN_CATEGORIES.filter(
+    (c) => values.foodle.category !== c
+  );
+  console.log(possibleCombination);
+
   return (
     <Container maxWidth="xl">
       <Grid container sx={{ mt: 1 }} spacing={2}>
-        <Grid item xs={12} display="flex" justifyContent="flex-end">
+        <Grid item xs={12} display="flex" justifyContent="space-between">
+          <Box display="flex" alignItems="center">
+            <Avatar sx={{ height: 30, width: 30, mr: 1 }}>
+              {values.foodle.author?.username.charAt(0).toUpperCase()}
+            </Avatar>
+            <Typography variant="h6">
+              {values.foodle.author.username}
+            </Typography>
+          </Box>
           <Button
             onClick={() =>
               onShare(
@@ -96,21 +111,14 @@ const Foodle = () => {
           )}
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
-          <Card sx={{ padding: 1, textAlign: "center" }}>
-            <img
-              src={imageSrc}
-              style={{ width: "100%", maxHeight: "500px" }}
-              alt={values.foodle.title}
-            />
-          </Card>
+          <ImageModal imageSrc={imageSrc} alt={values.foodle.title} />
           <Typography variant="h4" sx={{ mt: 1 }}>
             {values.foodle.title}
           </Typography>
-          <Typography variant="h6" sx={{ mb: 1 }}>
+          <Typography variant="body1" sx={{ mb: 1 }}>
+            Kategorie: {values.foodle.category}
+            <br />
             {values.foodle.description}
-          </Typography>
-          <Typography variant="caption">
-            Autor: {values.foodle.author ? values.foodle.author.username : "-"}
           </Typography>
           <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
             <Tooltip title="Zeitaufwand">
@@ -152,7 +160,10 @@ const Foodle = () => {
           </Stack>
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
-          <IngredientsList data={values.foodle.ingredients} />
+          <IngredientsList
+            data={values.foodle.ingredients}
+            startPortion={values.foodle.startPortion}
+          />
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
           <TutorialList data={values.foodle.steps} />
@@ -170,80 +181,10 @@ const Foodle = () => {
         <Grid item xs={12} md={12} xl={4}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={6}>
-              <Card sx={{ maxWidth: 350, width: "100%" }}>
-                <CardContent
-                  sx={{
-                    bgcolor: (theme) => theme.palette.secondary.main,
-                    py: 0.5,
-                  }}
-                >
-                  <Typography variant="subtitle1" component="div">
-                    Vorspeise
-                  </Typography>
-                </CardContent>
-
-                {[1, 2, 3].map((num) => (
-                  <CardActionArea
-                    sx={{
-                      bgcolor: (theme) => theme.palette.primary.main,
-                      py: 0,
-                    }}
-                    key={num}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={
-                        "https://source.unsplash.com/random/300x200?sig=" + num
-                      }
-                      alt="green iguana"
-                    />
-                    <CardContent sx={{ py: 0 }}>
-                      <Typography variant="h6" component="div">
-                        Essen
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                ))}
-              </Card>
+              <SuggestionCard category={possibleCombination[0]} />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Card sx={{ maxWidth: 350, width: "100%" }}>
-                <CardContent
-                  sx={{
-                    bgcolor: (theme) => theme.palette.secondary.main,
-                    py: 0.5,
-                  }}
-                >
-                  <Typography variant="subtitle1" component="div">
-                    Nachtisch gefällig?
-                  </Typography>
-                </CardContent>
-
-                {[4, 5, 6].map((num) => (
-                  <CardActionArea
-                    sx={{
-                      bgcolor: (theme) => theme.palette.primary.main,
-                      py: 0,
-                    }}
-                    key={num}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={
-                        "https://source.unsplash.com/random/300x200?sig=" + num
-                      }
-                      alt="green iguana"
-                    />
-                    <CardContent sx={{ py: 0 }}>
-                      <Typography variant="h6" component="div">
-                        Lizard
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                ))}
-              </Card>
+              <SuggestionCard category={possibleCombination[1]} />
             </Grid>
           </Grid>
         </Grid>
