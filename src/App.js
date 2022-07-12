@@ -35,52 +35,43 @@ const COOKIES_ALLOWED =
 
 function App() {
   const [values, setValues] = useState({
-    user: null,
     authState: AUTH_STATES.waiting,
     loading: true,
     cookiesAccepted: Boolean(COOKIES_ALLOWED),
   });
 
   useEffect(() => {
-    const auth = new Auth(window);
-    const user = auth.getUser();
+    const auth = new Auth();
 
-    if (user && user.isActivated === true) {
-      setValues((state) => ({
-        ...state,
-        authState: AUTH_STATES.loggedIn,
-        loading: false,
-      }));
-    } else {
-      setValues((state) => ({
-        ...state,
-        authState: AUTH_STATES.loggedOut,
-        loading: false,
-      }));
-    }
-
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setValues((state) => ({
-          ...state,
-          authState: AUTH_STATES.loggedIn,
-          loading: false,
-        }));
-      } else {
+    auth
+      .getCurrentUser()
+      .then((user) => {
+        if (user) {
+          setValues((state) => ({
+            ...state,
+            authState: AUTH_STATES.loggedIn,
+            loading: false,
+          }));
+        } else {
+          setValues((state) => ({
+            ...state,
+            authState: AUTH_STATES.loggedOut,
+            loading: false,
+          }));
+        }
+      })
+      .catch((err) => {
+        console.error(err);
         setValues((state) => ({
           ...state,
           authState: AUTH_STATES.loggedOut,
           loading: false,
         }));
-      }
-    });
-
+      });
     return () => {};
   }, []);
 
-  if (values.loading) {
-    return <Loader />;
-  }
+  if (values.loading) return <Loader />;
 
   let renderedRoutes = [
     { element: <Home />, index: true },

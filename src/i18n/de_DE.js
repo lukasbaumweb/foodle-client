@@ -2,9 +2,11 @@ export const de_DE = {
   "unknown-error": "Unbekannter Fehler",
   "unknown user": "Benutzername oder Passwort falsch",
   "password wrong": "Benutzername oder Passwort falsch",
-
+  "Too many requests, please try again later.":
+    "Zu viele Anfragen auf einmal. Versuche es später erneut",
   "An account with that username already exists.":
     "Es existiert bereits ein Konto mit diesem Benutzernamen.",
+    
   loaderSentences: [
     "Gäste werden eingeladen",
     "Einkaufszettel wird geschrieben",

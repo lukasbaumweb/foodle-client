@@ -20,6 +20,7 @@ const ChangeLog = () => {
     api
       .getChangelog()
       .then((result) => {
+        console.log(result);
         setValues((state) => ({
           ...state,
           changes: result.data || [],

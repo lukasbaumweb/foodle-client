@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Box, Button, Grid, TextField } from "@mui/material";
 import { Auth } from "../../../utils/auth";
 import { translate } from "../../../utils/translater";
-import { isObjectEmpty } from "../../../utils/functions";
+import { isObjectEmpty, validateEmail } from "../../../utils/functions";
+import MessageBox from "../../../components/MessageBox";
 
 const UserDataForm = () => {
   const [values, setValues] = useState({
@@ -13,6 +14,7 @@ const UserDataForm = () => {
     tab: 0,
     isDirty: false,
     errors: {},
+    message: "",
   });
 
   useEffect(() => {
@@ -53,12 +55,12 @@ const UserDataForm = () => {
       errors["lastName"] = translate("validation-error/lastName-missing");
     }
 
-    if (values.username.trim().length === 0) {
-      errors["username"] = translate("validation-error/username-missing");
-    }
-
     if (values.email.trim().length === 0) {
       errors["email"] = translate("validation-error/email-missing");
+    } else {
+      if (!validateEmail(values.email)) {
+        errors["email"] = translate("validation-error/email-malformed");
+      }
     }
 
     const result = isObjectEmpty(errors);
@@ -70,11 +72,33 @@ const UserDataForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
+
+    const auth = new Auth();
+
+    const payload = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+    };
+
+    auth
+      .updateUser(payload)
+      .then((res) => {
+        setValues({ ...values, isDirty: false, message: "Gespeichert" });
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
-    <Box component="form" onSubmit={onSubmit}>
-      <Grid container component="form" spacing={2} noValidate>
+    <Box>
+      <Grid
+        container
+        component="form"
+        onSubmit={onSubmit}
+        spacing={2}
+        noValidate
+      >
         <Grid item xs={12} md={6}>
           <TextField
             name="firstName"
@@ -143,6 +167,12 @@ const UserDataForm = () => {
           </Box>
         </Grid>
       </Grid>
+      {values.message.length > 0 && (
+        <MessageBox
+          dialogOpen={values.message.length > 0}
+          onClose={() => setValues({ ...values, message: "" })}
+        />
+      )}
     </Box>
   );
 };

@@ -129,10 +129,10 @@ const EditFoodle = () => {
 
     api
       .updateFoodle(id, payload)
-      .then(() => setValues({ ...values, loading: false }))
+      .then(() => setValues({ ...values, loading: false, isDirty: false }))
       .catch((err) => {
         console.error(err);
-        setValues({ ...values, loading: false, errors: {}, isDirty: false });
+        setValues({ ...values, loading: false, errors: {} });
       });
 
     try {

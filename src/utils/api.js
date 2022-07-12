@@ -168,6 +168,21 @@ class FoodleAPI {
     const result = await this.executeQuery(query);
     return result;
   }
+  async updateUser(payload) {
+    const query = axios.put(`${this.url}/auth/user`, payload, this.options);
+    const result = await this.executeQuery(query);
+    return result;
+  }
+
+  async changePassword(payload) {
+    const query = axios.put(
+      `${this.url}/auth/changePassword`,
+      payload,
+      this.options
+    );
+    const result = await this.executeQuery(query);
+    return result;
+  }
 
   async executeQuery(promise) {
     try {
@@ -184,7 +199,11 @@ class FoodleAPI {
           return;
         }
 
-        throw new Error(data.messages);
+        if (data.data?.error) {
+          throw new Error(data.data.error);
+        } else {
+          throw new Error(data);
+        }
       } else if (request) {
         throw new Error("server time out");
       } else {
@@ -216,19 +235,16 @@ class FoodleAPI {
     return result;
   }
 
-  async isLoggedIn(sessionKey) {
+  async isLoggedIn() {
     this.options = {
       headers: {
         Authorization: `Bearer ${this.authToken}`,
       },
     };
-    const query = axios.post(
-      `${this.url}/auth/check`,
-      {
-        token: sessionKey,
-      },
-      this.options
-    );
+    const query = axios.get(`${this.url}/auth/check`, {
+      ...this.options,
+    });
+
     await this.executeQuery(query);
 
     return false;

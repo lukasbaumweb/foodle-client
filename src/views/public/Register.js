@@ -93,7 +93,7 @@ const Register = () => {
         email: values.email.trim().toLowerCase(),
         password: values.password,
       })
-      .then(() => {
+      .then((result) => {
         window.location.href = ROUTES.private.home.path;
       })
       .catch((err) => {
