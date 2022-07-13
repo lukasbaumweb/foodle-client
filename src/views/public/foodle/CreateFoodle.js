@@ -90,7 +90,7 @@ const CreateFoodle = () => {
       title: values.title,
       description: values.description,
       category: values.category,
-      tags: values.tags.map((tag) => tag.name || tag),
+      tags: values.tags.filter((t) => t),
       startPortion: values.startPortion,
     };
 

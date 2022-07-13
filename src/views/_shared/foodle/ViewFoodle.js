@@ -87,27 +87,29 @@ const Foodle = () => {
               {values.foodle.author.username}
             </Typography>
           </Box>
-          <Button
-            onClick={() =>
-              onShare(
-                `Schau dir mal dieses Foodle an 😋\n`,
-                ROUTES.public.viewFoodle.path.replace(":id", id)
-              )
-            }
-            startIcon={<ShareIcon />}
-          >
-            Teilen
-          </Button>
-          {auth.getUser()?.uid === values.foodle.author?._id && (
+          <Box>
             <Button
               onClick={() =>
-                navigate(ROUTES.private.editFoodle.path.replace(":id", id))
+                onShare(
+                  `Schau dir mal dieses Foodle an 😋\n`,
+                  ROUTES.public.viewFoodle.path.replace(":id", id)
+                )
               }
-              startIcon={<EditIcon />}
+              startIcon={<ShareIcon />}
             >
-              Bearbeiten
+              Teilen
             </Button>
-          )}
+            {auth.getUser()?.uid === values.foodle.author?._id && (
+              <Button
+                onClick={() =>
+                  navigate(ROUTES.private.editFoodle.path.replace(":id", id))
+                }
+                startIcon={<EditIcon />}
+              >
+                Bearbeiten
+              </Button>
+            )}
+          </Box>
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
           <ImageModal imageSrc={imageSrc} alt={values.foodle.title} />
