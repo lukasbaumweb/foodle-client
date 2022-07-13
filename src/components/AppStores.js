@@ -14,12 +14,13 @@ const AppStores = (props) => {
       <p>
         Wir werden bald in folgenden Stores Foodle hochladen und bereistellen.
       </p>
-      <Box display="flex" gap="20px">
+      <Box>
         <img
           src={isDarkMode ? LightAppStore : DarkAppStore}
           width="auto"
           height="75px"
           alt="App Store Badge"
+          style={{ display: "inline-block" }}
         />
 
         <img
@@ -27,6 +28,7 @@ const AppStores = (props) => {
           width="auto"
           height="75px"
           alt="Play Store Badge"
+          style={{ display: "inline-block" }}
         />
       </Box>
     </Box>
