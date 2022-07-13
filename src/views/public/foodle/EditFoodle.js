@@ -63,7 +63,7 @@ const EditFoodle = () => {
           ...state,
           ingredients: data?.ingredients,
           steps: data?.steps,
-          startState: { ...data },
+          tags: data?.tags,
           ...data,
           exists: !!data,
           loading: false,
@@ -182,10 +182,10 @@ const EditFoodle = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6} xl={4}>
+        <Grid item xs={12} md={6}>
           <UploadImage id={id} />
         </Grid>
-        <Grid item xs={12} md={6} xl={4}>
+        <Grid item xs={12} md={6}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -254,7 +254,7 @@ const EditFoodle = () => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={6} xl={4}>
+        <Grid item xs={12} md={6}>
           <IngredientsList foodleId={id} data={values.ingredients} editable />
         </Grid>
         <Grid item xs={12} md={6}>

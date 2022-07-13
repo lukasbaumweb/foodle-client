@@ -83,7 +83,6 @@ const Login = () => {
         window.location.href = "/";
       })
       .catch((err) => {
-        console.log(err.message);
         setValues({
           ...values,
           errors: { all: translate(err.message) },

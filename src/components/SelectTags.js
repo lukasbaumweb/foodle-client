@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Autocomplete, Chip, CircularProgress, TextField } from "@mui/material";
 import { Entity, getLocalStorage } from "../utils/functions";
 
-const convertValues = (vals) =>
-  vals.map((value) => {
+const convertValues = (vals) => {
+  return vals.map((value) => {
     if (typeof value === "object") return value;
     return { name: value };
   });
+};
 
 const SelectTags = ({ onChangeTags, value }) => {
   const [values, setValues] = useState({
@@ -14,7 +15,7 @@ const SelectTags = ({ onChangeTags, value }) => {
     selectableTags: [],
     loading: true,
   });
-  const initValue = convertValues(value.filter((t) => t));
+  const initValue = convertValues(value.filter((t) => t !== null));
 
   useEffect(() => {
     (async () => {

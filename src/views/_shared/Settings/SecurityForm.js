@@ -51,7 +51,6 @@ const SecurityForm = () => {
     auth
       .changePassword(payload)
       .then((res) => {
-        console.log(res);
         setValues({
           ...values,
           password: "",

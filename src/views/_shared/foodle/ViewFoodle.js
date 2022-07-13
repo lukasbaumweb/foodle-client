@@ -74,7 +74,6 @@ const Foodle = () => {
   const possibleCombination = MAIN_CATEGORIES.filter(
     (c) => values.foodle.category !== c
   );
-  console.log(possibleCombination);
 
   return (
     <Container maxWidth="xl">

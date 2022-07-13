@@ -27,7 +27,6 @@ const SuggestionCard = ({ category }) => {
         limit: 3,
       })
       .then((res) => {
-        console.log(res);
         setValues((state) => ({
           ...state,
           foodles: res.data.foodles,

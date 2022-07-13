@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import FoodleCard from "../FoodleCard";
 import { Masonry } from "@mui/lab";
 import FoodleAPI from "../../utils/api";
@@ -9,6 +9,8 @@ import ROUTES from "../../utils/routes";
 
 const FoodlesByAuthor = ({ uid }) => {
   const [values, setValues] = useState({ loading: true, foodles: [] });
+
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   useEffect(() => {
     const api = new FoodleAPI();
@@ -39,7 +41,7 @@ const FoodlesByAuthor = ({ uid }) => {
   return (
     <Box>
       {values.foodles.length > 0 ? (
-        <Masonry columns={3} spacing={2}>
+        <Masonry columns={isMobile ? 2 : 3} spacing={2}>
           {values.foodles.map((item, index) => (
             <FoodleCard key={index} foodle={item} />
           ))}

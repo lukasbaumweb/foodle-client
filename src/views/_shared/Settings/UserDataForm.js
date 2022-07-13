@@ -85,7 +85,6 @@ const UserDataForm = () => {
       .updateUser(payload)
       .then((res) => {
         setValues({ ...values, isDirty: false, message: "Gespeichert" });
-        console.log(res);
       })
       .catch((err) => console.error(err));
   };
