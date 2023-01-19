@@ -23,6 +23,7 @@ import Impressum from "./views/public/Impressum";
 import CookieNotice from "./components/CookieNotice";
 import { CONFIG } from "./utils/config";
 import ChangeLog from "./views/public/ChangeLog";
+import { supabase } from "./utils/supabaseClient";
 
 const AUTH_STATES = {
   waiting: "waiting",
@@ -41,33 +42,23 @@ function App() {
   });
 
   useEffect(() => {
-    const auth = new Auth();
-
-    auth
-      .getCurrentUser()
-      .then((user) => {
-        if (user) {
-          setValues((state) => ({
-            ...state,
-            authState: AUTH_STATES.loggedIn,
-            loading: false,
-          }));
-        } else {
-          setValues((state) => ({
-            ...state,
-            authState: AUTH_STATES.loggedOut,
-            loading: false,
-          }));
-        }
-      })
-      .catch((err) => {
-        console.error(err);
+    (async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (data) {
+        setValues((state) => ({
+          ...state,
+          authState: AUTH_STATES.loggedIn,
+          loading: false,
+        }));
+      } else {
         setValues((state) => ({
           ...state,
           authState: AUTH_STATES.loggedOut,
           loading: false,
         }));
-      });
+      }
+    })();
+
     return () => {};
   }, []);
 
